@@ -6,6 +6,7 @@ a car reaches the construction area, there is an 80% chance that another car wil
 car comes, there will be a 20-second gap (utilizing the provided pthread_sleep function) before any new 
 car arrives. 
 <br />
+<br />
 During the intervals where no cars are at either end, the flag person will rest. However, when a car arrives 
 at either end, the flag person will wake up and manage the traffic flow from that side, until there are no 
 more cars from that side or until there are 10 or more cars waiting in the opposite direction. If there are 10 
@@ -21,34 +22,43 @@ Road Synchronization
 
 ## [Thread #1]
   --> Task: Producer that produce
+  <br />
   --> Thread Function: northTraffic
 
 ## [Thread #2]
   --> Task: Producer that produces car (object)
+  <br />
   --> Thread Function: southTraffic
 
 ## [Thread #3]
 —> Task: Consumer that consumes the car (object)
+<br />
 —> Thread Function: worker
 ..............
 #Semaphores
 Number of semaphores:
 ## [Semaphore #1]
   --> Variable: sem_north
+  <br />
   --> Initial value:1
+  <br />
   --> Purpose: make northTraffic blocked upon on events car arrives from the North
 
 ## [Semaphores#2]
---> Variable: sem_south
- --> Initial value:1
+ --> Variable: sem_south
+ <br />
+ --> Initial value: 1
+ <br />
  --> Purpose: make southTraffic blocked upon on events car arrives from the South
 ..........
 
 # Mutex lock 
+<br />
 Number of mutex locks:1
 
 ## [Mutex lock #1]
   --> Variable:locker
+  <br />
   --> Purpose: avoid race condition on shared data structure of the northTraffic and southTraffic accepting cars waiting and the process where north and south passes when they are removed from the queue.
 
 
